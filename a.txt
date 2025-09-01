@@ -1,0 +1,132 @@
+
+
+
+4. Redes Sociales (social_accounts)
+Perfiles conectados de influencers.
+CampoTipoDescripción
+id
+INT (PK)
+ID único del perfil conectado
+influencer_id
+INT (FK)
+FK a influencers.user_id
+platform
+ENUM
+Instagram, YouTube, etc.
+username
+VARCHAR(100)
+Nombre de usuario en la plataforma
+followers
+INT
+Seguidores actuales
+engagement
+DECIMAL(5,2)
+Engagement de esta cuenta
+connected_at
+DATETIME
+Fecha de conexión del perfil
+
+ 
+5. Campañas (campaigns)
+Campañas creadas por las empresas.
+CampoTipoDescripción
+id
+INT (PK)
+Identificador único
+company_id
+INT (FK)
+FK a companies.user_id
+title
+VARCHAR(255)
+Nombre de la campaña
+description
+TEXT
+Descripción general
+budget
+DECIMAL(10,2)
+Presupuesto estimado
+start_date
+DATE
+Fecha de inicio
+end_date
+DATE
+Fecha de fin
+
+
+6. Colaboraciones (collaborations)
+Conexiones entre campañas e influencers.
+CampoTipoDescripción
+id
+INT (PK)
+Identificador único
+campaign_id
+INT (FK)
+FK a campaigns.id
+influencer_id
+INT (FK)
+FK a influencers.user_id
+status
+ENUM
+pendiente, aceptada, rechazada
+agreed_fee
+DECIMAL(10,2)
+Pago acordado
+created_at
+DATETIME
+Fecha de solicitud de colaboración
+7. Métricas Históricas (engagement_reports)
+Historial de engagement y autenticidad.
+CampoTipoDescripción
+id
+INT (PK)
+Identificador
+influencer_id
+INT (FK)
+FK a influencers.user_id
+platform
+ENUM
+Red social a la que corresponde
+date
+DATE
+Fecha del análisis
+followers
+INT
+Seguidores ese día
+likes
+INT
+Total de likes
+comments
+INT
+Total de comentarios
+engagement
+DECIMAL(5,2)
+Engagement calculado
+authenticity_score
+DECIMAL(5,2)
+Puntaje de autenticidad
+8. Mensajes / Notificaciones (messages)
+Mensajes entre empresas e influencers.
+CampoTipoDescripción
+id
+INT (PK)
+Identificador
+sender_id
+INT (FK)
+FK a users.id
+receiver_id
+INT (FK)
+FK a users.id
+content
+TEXT
+Contenido del mensaje
+created_at
+DATETIME
+Fecha de envío
+🔗 Relaciones Clave
+users 1---1 influencers y companies (según el rol).
+influencers 1---N social_accounts
+companies 1---N campaigns
+campaigns N---M influencers (a través de collaborations)
+influencers 1---N engagement_reports
+users N---N messages (entre ellos)
+ 
